@@ -1,0 +1,13 @@
+﻿@model CardDeck.Models.Card
+
+
+@if (Model != null)
+{
+    <p>The card you drew is @Model.Value of @Model.Suit</p>
+
+    <button onclick="location.href='/CardDeck/DrawCard'"> Draw Card</button>
+}
+else
+{
+    <p>You are out of cards!</p>
+}
