@@ -12,8 +12,9 @@ namespace CardDeck.Models
 
         public static Deck ReadObjectFromJson<Deck>(this ISession session, string key)
         {
-            string jsonString = session.GetString(key);
-            return JsonConvert.DeserializeObject<Deck>(jsonString);
+            string json = session.GetString(key);
+
+            return JsonConvert.DeserializeObject<Deck>(json);
         }
     }
 }

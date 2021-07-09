@@ -1,41 +1,52 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace CardDeck.Models
 {
     public class Deck
     {
-        public List<Card> CardDeck { get; set; } = new List<Card>();
-        public List<Card> ShuffledDeck { get; set; } = new List<Card>();
+        public List<Card> CardDeck { get; }
+        public List<Card> ShuffledDeck { get; }
 
-        Random random = new Random();
+        private readonly Random random = new Random();
 
-        public void Shuffle()
+        public Deck()
         {
+            CardDeck = new List<Card>();
+
             foreach (Suit suit in Enum.GetValues(typeof(Suit)))
             {
                 foreach (Value value in Enum.GetValues(typeof(Value)))
-                 {
+                {
                     Card card = new Card { Suit = suit, Value = value };
+
                     CardDeck.Add(card);
                 }
             }
-           while (CardDeck.Count > 0)
-           {
-                Card randomCard = CardDeck[random.Next(CardDeck.Count)];
-                CardDeck.Remove(randomCard);
-                ShuffledDeck.Add(randomCard);
-           }
+
+            ShuffledDeck = new List<Card>();
         }
 
-        public Card DealOneCard(List<Card> shuffledCards)
+        public void Shuffle()
         {
-            if(ShuffledDeck.Count > 0)
+            List<Card> cardDeck = CardDeck.Select(x => new Card { Suit = x.Suit, Value = x.Value }).ToList();
+
+            while (cardDeck.Count > 0)
             {
-                Card cardDrawn = shuffledCards[0];
-                shuffledCards.Remove(cardDrawn);
+                Card randomCard = cardDeck[random.Next(cardDeck.Count)];
+
+                cardDeck.Remove(randomCard);
+                ShuffledDeck.Add(randomCard);
+            }
+        }
+
+        public Card DealOneCard()
+        {
+            if (ShuffledDeck.Count > 0)
+            {
+                Card cardDrawn = ShuffledDeck.First();
+                ShuffledDeck.Remove(cardDrawn);
                 return cardDrawn;
             }
             else

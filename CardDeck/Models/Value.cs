@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace CardDeck.Models
+﻿namespace CardDeck.Models
 {
     public enum Value
-    { 
+    {
         Ace,
         Two,
         Three,
@@ -20,6 +15,5 @@ namespace CardDeck.Models
         Jack,
         Queen,
         King
-
     }
 }
